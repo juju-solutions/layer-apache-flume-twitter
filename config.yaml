@@ -1,0 +1,59 @@
+options:
+    resources_mirror:
+      type: string
+      default: ''
+      description: |
+        URL from which to fetch resources (e.g., Hadoop binaries) instead
+        of Launchpad.
+    channel_capacity:
+      type: string
+      default: '1000'
+      description: |
+        The maximum number of events stored in the channel.
+    channel_transaction_capacity:
+      type: string
+      default: '100'
+      description: |
+        The maximum number of events the channel will take from a source or
+        give to a sink per transaction.
+    event_dir:
+      type: string
+      default: 'flume-twitter'
+      description: |
+        The HDFS subdirectory under /user/flume where events will be stored.
+    twitter_source:
+      type: string
+      default: 'org.apache.flume.source.twitter.TwitterSource'
+      description: |
+        The application to use for this Flume source. Deafult to TwitterSource
+        bundled with Flume.
+    twitter_access_token:
+      type: string
+      default: ''
+      description: |
+        OAuth Access token from your Twitter developer account
+    twitter_access_token_secret:
+      type: string
+      default: ''
+      description: |
+        OAuth Access token secret from your Twitter developer account
+    twitter_consumer_key:
+      type: string
+      default: ''
+      description: |
+        OAuth Consumer key from your Twitter developer account
+    twitter_consumer_secret:
+      type: string
+      default: ''
+      description: |
+        OAth Consumer secret from your Twitter developer account
+    twitter_max_batch_size:
+      type: int
+      default: 1000
+      description: |
+        Maximum number of twitter messages to put in a single batch
+    twitter_max_batch_duration:
+      type: int
+      default: 1000
+      description: |
+        Maximum number of milliseconds to wait before closing a batch
