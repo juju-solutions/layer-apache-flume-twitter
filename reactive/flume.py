@@ -1,6 +1,6 @@
 import jujuresources
 from charms.reactive import when, when_not
-from charms.reactive import set_state, remove_state, is_state
+from charms.reactive import set_state, remove_state
 from charmhelpers.core import hookenv
 from subprocess import check_call
 from glob import glob
@@ -60,9 +60,15 @@ def install_flume(*args):
 
 
 @when('flumeagent.installed')
-@when_not('flume-agent.available')
+@when_not('flume-agent.connected')
 def waiting_for_flume_connection():
     hookenv.status_set('blocked', 'Waiting for connection to Flume HDFS')
+
+
+@when('flumeagent.installed','flume-agent.connected')
+@when_not('flume-agent.available')
+def waiting_for_flume_available(flume):
+    hookenv.status_set('blocked', 'Waiting for Flume HDFS to become available')
 
 
 @when('flumeagent.installed', 'flume-agent.available')

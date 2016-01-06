@@ -5,13 +5,17 @@ from subprocess import Popen, check_output
 
 import jujuresources
 
-from path import Path
 from jujubigdata import utils
 from charmhelpers.core import unitdata, templating, hookenv
-from shutil import copy
 
 # Main Flume class for callbacks
 class Flume(object):
+    """
+    This class manages the deployment steps of Flume agent.
+    
+    :param DistConfig dist_config: The configuration container object needed.
+    """
+
     def __init__(self, dist_config):
         self.dist_config = dist_config
         self.resources = {
@@ -23,6 +27,11 @@ class Flume(object):
         return unitdata.kv().get('flume_hdfs.installed')
 
     def install(self, force=False):
+        '''
+        Create the users and directories. This method is to be called only once.
+        
+        :param bool force: Force the installation execution even if this is not the first installation attempt.
+        '''
         if not force and self.is_installed():
             return
         jujuresources.install(self.resources['flume'],
