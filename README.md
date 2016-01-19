@@ -39,15 +39,18 @@ You may manually deploy the recommended environment as follows:
     juju deploy apache-hadoop-namenode namenode
     juju deploy apache-hadoop-nodemanager nodemgr
     juju deploy apache-hadoop-resourcemanager resourcemgr
+    juju deploy apache-hadoop-plugin plugin
 
     juju add-relation namenode datanode
     juju add-relation resourcemgr nodemgr
     juju add-relation resourcemgr namenode
+    juju add-relation plugin resourcemgr
+    juju add-relation plugin namenode
 
 Deploy Flume hdfs:
 
     juju deploy apache-flume-hdfs flume-hdfs
-    juju add-relation flume-hdfs namenode
+    juju add-relation flume-hdfs plugin
 
 Now that the base environment has been deployed (either via quickstart or
 manually), you are ready to add the `apache-flume-twitter` charm and
