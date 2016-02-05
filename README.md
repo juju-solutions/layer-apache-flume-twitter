@@ -59,6 +59,8 @@ relate it to the `flume-hdfs` agent:
     juju deploy apache-flume-twitter flume-twitter --config=secret.yaml
     juju add-relation flume-twitter flume-hdfs
 
+Make sure you name the service `flume-twitter` so that it matches the first line of `secret.yaml`.
+
 That's it! Once the Flume agents start, tweets will start flowing into
 HDFS via the `flume-twitter` and `flume-hdfs` charms. Flume may include
 multiple events in each file written to HDFS. This is configurable with various
