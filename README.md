@@ -35,14 +35,13 @@ and act as a client to a Hadoop namenode:
 
 You may manually deploy the recommended environment as follows:
 
-    juju deploy apache-hadoop-datanode datanode
     juju deploy apache-hadoop-namenode namenode
-    juju deploy apache-hadoop-nodemanager nodemgr
     juju deploy apache-hadoop-resourcemanager resourcemgr
+    juju deploy apache-hadoop-slave slave
     juju deploy apache-hadoop-plugin plugin
 
-    juju add-relation namenode datanode
-    juju add-relation resourcemgr nodemgr
+    juju add-relation namenode slave
+    juju add-relation resourcemgr slave
     juju add-relation resourcemgr namenode
     juju add-relation plugin resourcemgr
     juju add-relation plugin namenode

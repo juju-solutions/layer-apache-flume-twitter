@@ -1,6 +1,6 @@
 name: apache-flume-twitter
 summary: Ingest tweets with Apache Flume
-maintainer: Kevin Monroe <kevin.monroe@canonical.com>
+maintainer: Big Data Team <bigdata@lists.ubuntu.com>s
 description: |
   Uses a Twitter source, memory channel, and Avro sink in Apache Flume
   to ingest Twitter data.

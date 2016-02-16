@@ -3,6 +3,7 @@ from charms.reactive import when, when_not
 from charms.reactive import set_state, remove_state
 from charmhelpers.core import hookenv
 from charms.flume import Flume
+from charms.reactive.helpers import data_changed
 
 API_CRED_OPTIONS = [
     'twitter_access_token',
@@ -69,6 +70,15 @@ def configure_flume(flumehdfs):
         set_state('flumeagent.started')
     except:
         hookenv.log("Relation with Flume sink not established correctly")
+
+
+@when('flumeagent.installed', 'flume-agent.available', 'flumeagent.started')
+def reconfigure_flume(flumehdfs):
+    config = hookenv.config()
+    if not data_changed('configuration', config):
+        return
+    
+    configure_flume(flumehdfs)    
 
 
 @when('flumeagent.started')
