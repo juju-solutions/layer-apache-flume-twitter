@@ -6,5 +6,5 @@ description: |
   to ingest Twitter data.
 tags: ["applications", "bigdata", "apache"]
 requires:
-  flume-agent:
+  flumehdfs:
     interface: flume-agent
