@@ -24,7 +24,7 @@ class Flume(object):
         self.verify_resources = utils.verify_resources(*self.resources.values())
 
     def is_installed(self):
-        return unitdata.kv().get('flume_hdfs.installed')
+        return unitdata.kv().get('flume_agent.installed')
 
     def install(self, force=False):
         '''
