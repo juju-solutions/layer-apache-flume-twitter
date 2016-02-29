@@ -4,8 +4,6 @@ from charms.reactive.helpers import any_file_changed
 
 from charmhelpers.core import hookenv
 
-from jujubigdata.utils import DistConfig
-
 from charms.layer.flume_base import Flume
 
 
@@ -41,7 +39,7 @@ def waiting_for_flume_available(sink):  # pylint: disable=unused-argument
 @when('flume-base.installed', 'flume-twitter.config.valid', 'flume-sink.ready')
 def configure_flume(sink):
     hookenv.status_set('maintenance', 'Configuring Flume')
-    flume = Flume(DistConfig())
+    flume = Flume()
     flume.configure_flume({'agents': sink.agents()})
     if any_file_changed(flume.config_file):
         flume.restart()
@@ -52,7 +50,7 @@ def configure_flume(sink):
 @when('flume-twitter.started')
 @when_not('flume-twitter.config.valid')
 def stop_flume():
-    flume = Flume(DistConfig())
+    flume = Flume()
     flume.stop()
     remove_state('flume-twitter.started')
 
