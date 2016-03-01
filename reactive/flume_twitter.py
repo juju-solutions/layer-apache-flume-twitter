@@ -4,7 +4,7 @@ from charms.reactive.helpers import any_file_changed
 
 from charmhelpers.core import hookenv
 
-from charms.layer.flume_base import Flume
+from charms.layer.apache_flume_base import Flume
 
 
 API_CRED_OPTIONS = [
@@ -41,7 +41,7 @@ def configure_flume(sink):
     hookenv.status_set('maintenance', 'Configuring Flume')
     flume = Flume()
     flume.configure_flume({'agents': sink.agents()})
-    if any_file_changed(flume.config_file):
+    if any_file_changed([flume.config_file]):
         flume.restart()
     hookenv.status_set('active', 'Ready')
     set_state('flume-twitter.started')
