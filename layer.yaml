@@ -1,1 +1,1 @@
-includes: ['layer:basic', 'interface:flume-agent']
+includes: ['layer:apache-flume-base', 'interface:flume-agent']

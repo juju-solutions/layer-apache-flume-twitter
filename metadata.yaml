@@ -4,7 +4,6 @@ maintainer: Big Data Team <bigdata@lists.ubuntu.com>
 description: |
   Uses a Twitter source, memory channel, and Avro sink in Apache Flume
   to ingest Twitter data.
-tags: ["applications", "bigdata", "apache"]
 requires:
-  flumehdfs:
+  flume-sink:
     interface: flume-agent

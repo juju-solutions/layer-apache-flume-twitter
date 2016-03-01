@@ -1,31 +1,33 @@
 # list sources, sinks, and channels in the agent
-a1.sources = r1
-a1.sinks = k1
-a1.channels = c1
+a1.sources = twitter
+a1.channels = {{ agents|agent_list(prefix='chan-') }}
+a1.sources.twitter.channels = {{ agents|agent_list(prefix='chan-') }}
+a1.sinks = {{ agents|agent_list(prefix='sink-') }}
 
 # source properties
-a1.sources.r1.type = {{ config['twitter_source'] }}
-a1.sources.r1.channels = c1
-a1.sources.r1.consumerKey = {{ config['twitter_consumer_key'] }}
-a1.sources.r1.consumerSecret = {{ config['twitter_consumer_secret'] }}
-a1.sources.r1.accessToken = {{ config['twitter_access_token'] }}
-a1.sources.r1.accessTokenSecret = {{ config['twitter_access_token_secret'] }}
-a1.sources.r1.maxBatchSize = {{ config['twitter_max_batch_size'] }}
-a1.sources.r1.maxBatchDurationMillis = {{ config['twitter_max_batch_duration'] }}
+a1.sources.twitter.type = {{ config['twitter_source'] }}
+a1.sources.twitter.consumerKey = {{ config['twitter_consumer_key'] }}
+a1.sources.twitter.consumerSecret = {{ config['twitter_consumer_secret'] }}
+a1.sources.twitter.accessToken = {{ config['twitter_access_token'] }}
+a1.sources.twitter.accessTokenSecret = {{ config['twitter_access_token_secret'] }}
+a1.sources.twitter.maxBatchSize = {{ config['twitter_max_batch_size'] }}
+a1.sources.twitter.maxBatchDurationMillis = {{ config['twitter_max_batch_duration'] }}
 
 # inject our configured subdir
-a1.sources.r1.interceptors = i1
-a1.sources.r1.interceptors.i1.type = static
-a1.sources.r1.interceptors.i1.key = event_dir
-a1.sources.r1.interceptors.i1.value = {{ config['event_dir'] }}
+a1.sources.twitter.interceptors = i1
+a1.sources.twitter.interceptors.i1.type = static
+a1.sources.twitter.interceptors.i1.key = event_dir
+a1.sources.twitter.interceptors.i1.value = {{ config['event_dir'] }}
 
+{% for agent in agents %}
 # channel properties
-a1.channels.c1.type = memory
-a1.channels.c1.capacity = {{ config['channel_capacity']}}
-a1.channels.c1.transactionCapacity = {{ config['channel_transaction_capacity']}}
+a1.channels.chan-{{ agent['name'] }}.type = memory
+a1.channels.chan-{{ agent['name'] }}.capacity = {{ config['channel_capacity'] }}
+a1.channels.chan-{{ agent['name'] }}.transactionCapacity = {{ config['channel_transaction_capacity'] }}
 
 # sink properties
-a1.sinks.k1.type = {{ flume_hdfs['protocol'] }}
-a1.sinks.k1.channel = c1
-a1.sinks.k1.hostname = {{ flume_hdfs['private-address'] }}
-a1.sinks.k1.port = {{ flume_hdfs['port'] }}
+a1.sinks.sink-{{ agent['name'] }}.type = {{ agent['protocol'] }}
+a1.sinks.sink-{{ agent['name'] }}.channel = chan-{{ agent['name'] }}
+a1.sinks.sink-{{ agent['name'] }}.hostname = {{ agent['host'] }}
+a1.sinks.sink-{{ agent['name'] }}.port = {{ agent['port'] }}
+{% endfor %}
