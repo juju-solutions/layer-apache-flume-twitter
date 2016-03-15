@@ -1,1 +1,2 @@
+repo: git@github.com:juju-solutions/layer-apache-flume-twitter.git
 includes: ['layer:apache-flume-base', 'interface:flume-agent']
