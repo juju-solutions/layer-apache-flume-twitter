@@ -7,3 +7,4 @@ description: |
 requires:
   flume-sink:
     interface: flume-agent
+series: ['xenial', 'trusty']
